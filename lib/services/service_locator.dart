@@ -1,3 +1,5 @@
+import 'package:ams/users_management/bloc/user_bloc.dart';
+import 'package:ams/users_management/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
 import '../dashboard/bloc/dashboard_bloc.dart';
 import '../dashboard/repositories/dashboard_repository.dart';
@@ -13,6 +15,7 @@ class ServiceLocator {
 
   late final WebService _webService;
   late final DashboardRepository _dashboardRepository;
+  late final UserRepository _userRepository;
 
   /// Initialize all services
   void init() {
@@ -28,6 +31,11 @@ class ServiceLocator {
       mockDataService: MockDataService(),
       useMockData: true,
     );
+
+    _userRepository = UserRepository(
+        webService: _webService  // Fixed: was using webService instead of _webService
+    );
+
     if (kDebugMode) {
       print('[ServiceLocator] Services initialized');
     }
@@ -38,9 +46,14 @@ class ServiceLocator {
 
   /// Get DashboardRepository instance
   DashboardRepository get dashboardRepository => _dashboardRepository;
+  UserRepository get userRepository => _userRepository;
 
   /// Create DashboardBloc instance
   DashboardBloc createDashboardBloc() {
     return DashboardBloc(dashboardRepository: _dashboardRepository);
+  }
+
+  UserBloc createUserBloc() {
+    return UserBloc(userRepository: _userRepository);
   }
 }

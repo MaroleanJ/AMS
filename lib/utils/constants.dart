@@ -1,15 +1,24 @@
 class ApiEndpoints {
   // Base URL - replace with your actual API base URL
-  static const String baseUrl = 'https://your-api-domain.com/api/';
+  static const String baseUrl = 'https://amsengine-production.up.railway.app/';
+
+  // Working Users endpoints
+  static const String createUser = '/api/v1/users'; // POST
+  static const String getUsers = '/api/v1/users'; // GET
 
   // Dashboard endpoints
   static const String dashboardSummary = 'dashboard/summary';
 
-  // Asset endpoints
-  static const String assets = 'assets';
-  static const String addAsset = 'assets/create';
-  static const String updateAsset = 'assets/update';
-  static const String deleteAsset = 'assets/delete';
+  // Working Asset endpoints
+  static const String assetsCategories = '/api/v1/asset-categories'; // GET
+  static const String assetCategoryCount = '/api/v1/asset-categories/count'; // GET
+  static const String assetCategorySearch = '/api/v1/asset-categories/search?q=term'; // GET
+  static const String getAssetCategoryName = '/api/v1/asset-categories/name/{name}'; // GET
+  static const String getAssetCategoryId = '/api/v1/asset-categories/{id}'; // GET
+  static const String createAssetCategory = '/api/v1/asset-categories'; // POST
+  static const String updateAssetCategory = '/api/v1/asset-categories/{id}'; // PUT
+  static const String deleteAssetCategory = '/api/v1/asset-categories/{id}'; // DELETE
+  static const String checkAssetCategoryAvailability = '/api/v1/asset-categories/{id}'; // HEAD
 
   // License endpoints
   static const String licenses = 'licenses';
