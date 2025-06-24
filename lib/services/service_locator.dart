@@ -6,6 +6,8 @@ import '../dashboard/repositories/dashboard_repository.dart';
 import 'mock_data_service.dart';
 import 'web_service.dart';
 import '../utils/constants.dart';
+import 'package:ams/user_login/repositories/auth_repository.dart';
+import 'package:ams/user_login/bloc/auth_bloc.dart';
 
 class ServiceLocator {
   static ServiceLocator? _instance;
@@ -16,6 +18,7 @@ class ServiceLocator {
   late final WebService _webService;
   late final DashboardRepository _dashboardRepository;
   late final UserRepository _userRepository;
+  late final AuthRepository _authRepository;
 
   /// Initialize all services
   void init() {
@@ -34,6 +37,10 @@ class ServiceLocator {
 
     _userRepository = UserRepository(
         webService: _webService  // Fixed: was using webService instead of _webService
+    );
+    
+    _authRepository = AuthRepository(
+        webService: _webService
     );
 
     if (kDebugMode) {
@@ -55,5 +62,9 @@ class ServiceLocator {
 
   UserBloc createUserBloc() {
     return UserBloc(userRepository: _userRepository);
+  }
+  
+  AuthBloc createAuthBloc() {
+    return AuthBloc(authRepository: _authRepository);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:ams/users_management/models/user.dart';
+import 'package:ams/services/common_model.dart';
 
 abstract class UserEvent extends Equatable {
   const UserEvent();

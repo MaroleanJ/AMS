@@ -2,6 +2,9 @@ class ApiEndpoints {
   // Base URL - replace with your actual API base URL
   static const String baseUrl = 'https://amsengine-production.up.railway.app/';
 
+  // Working Login endpoints
+  static const String login = '/api/v1/users/login';
+
   // Working Users endpoints
   static const String createUser = '/api/v1/users'; // POST
   static const String getUsers = '/api/v1/users'; // GET

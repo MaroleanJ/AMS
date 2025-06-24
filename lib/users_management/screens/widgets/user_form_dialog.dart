@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../models/user.dart';
+import 'package:ams/services/common_model.dart';
 
 class UserFormDialog extends StatefulWidget {
   final User? existingUser;

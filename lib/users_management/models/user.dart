@@ -1,28 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-enum UserRole {
-  ADMIN,
-  ASSET_MANAGER,
-  EMPLOYEE;
-
-  String get displayName {
-    switch (this) {
-      case UserRole.ADMIN:
-        return 'Admin';
-      case UserRole.ASSET_MANAGER:
-        return 'Asset Manager';
-      case UserRole.EMPLOYEE:
-        return 'Employee';
-    }
-  }
-
-  static UserRole fromString(String role) {
-    return UserRole.values.firstWhere(
-          (e) => e.name.toUpperCase() == role.toUpperCase(),
-      orElse: () => UserRole.EMPLOYEE,
-    );
-  }
-}
+import 'package:ams/services/common_model.dart';
 
 class User extends Equatable {
   final int? id;

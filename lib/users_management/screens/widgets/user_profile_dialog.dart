@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../../models/user.dart';
+import 'package:ams/services/common_model.dart';
+
 
 class UserProfileDialog extends StatelessWidget {
   final User user;

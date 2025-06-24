@@ -7,6 +7,7 @@ import 'package:ams/users_management/bloc/user_bloc.dart';
 import 'package:ams/users_management/bloc/user_event.dart';
 import '../bloc/user_state.dart';
 import '../models/user.dart';
+import 'package:ams/services/common_model.dart';
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});
