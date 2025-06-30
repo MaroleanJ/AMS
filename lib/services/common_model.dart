@@ -60,7 +60,7 @@ extension UserRoleExtension on UserRole {
         return 1;
     }
   }
-//
+
   /// Check if role has admin privileges
   bool get hasAdminPrivileges => this == UserRole.ADMIN;
 
