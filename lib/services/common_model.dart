@@ -61,7 +61,7 @@ extension UserRoleExtension on UserRole {
     }
   }
 
-  /// Check if role has admin privileges
+  /// Check if role has admin privileges//
   bool get hasAdminPrivileges => this == UserRole.ADMIN;
 
   /// Check if role can manage assets
