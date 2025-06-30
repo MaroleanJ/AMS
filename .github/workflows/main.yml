@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Generate localization files
-        run: flutter gen-l10n
-
       - name: Build Flutter web
         run: flutter build web
 
