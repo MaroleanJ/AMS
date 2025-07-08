@@ -10,7 +10,15 @@ class ApiEndpoints {
   static const String getUsers = '/api/v1/users'; // GET
 
   // Dashboard endpoints
-  static const String dashboardSummary = 'dashboard/summary';
+  static const String overview = 'api/v1/dashboard/overview';
+  static const String assetMetrics = 'api/v1/dashboard/assets/metrics';
+  static const String maintenanceMetrics = 'api/v1/dashboard/maintenance/metrics';
+  static const String licenseMetrics = 'api/v1/dashboard/licenses/metrics';
+  static const String subscriptionMetrics = 'api/v1/dashboard/subscriptions/metrics';
+  static const String issueMetrics = 'api/v1/dashboard/issues/metrics';
+  static const String upcomingEvents = 'api/v1/dashboard/events/upcoming';
+  static const String financialSummary = 'api/v1/dashboard/financial/summary';
+
 
   // Working Asset endpoints
   static const String assetsCategories = '/api/v1/asset-categories'; // GET

@@ -8,7 +8,7 @@ class WebService {
 
   WebService({
     required this.baseUrl,
-    this.timeout = const Duration(seconds: 30),
+    this.timeout = const Duration(seconds: 90),
   });
 
   /// Fetches data from the given endpoint

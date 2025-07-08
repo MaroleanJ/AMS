@@ -1,57 +1,78 @@
+// dashboard_bloc.dart
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import '../models/dashboard_summary.dart';
 import '../repositories/dashboard_repository.dart';
 import 'dashboard_event.dart';
 import 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   final DashboardRepository dashboardRepository;
-  late DashboardSummary _currentSummary;
 
-  DashboardBloc({required this.dashboardRepository}) : super(DashboardLoading()) {
+  DashboardBloc({required this.dashboardRepository}) : super(DashboardInitial()) {
     if (kDebugMode) {
-      print("[DashboardBloc] Initialized.");
+      print('[DashboardBloc] Initialized');
     }
-    on<LoadDashboardSummary>(_onLoadDashboardSummary);
+
+    on<LoadDashboardOverview>(_onLoadDashboardOverview);
     on<RefreshDashboard>(_onRefreshDashboard);
-    add(LoadDashboardSummary());
   }
 
-  Future<void> _onLoadDashboardSummary(LoadDashboardSummary event, Emitter<DashboardState> emit) async {
+  Future<void> _onLoadDashboardOverview(
+      LoadDashboardOverview event,
+      Emitter<DashboardState> emit,
+      ) async {
     try {
       if (kDebugMode) {
-        print("[DashboardBloc] Processing LoadDashboardSummary event");
+        print('[DashboardBloc] Loading dashboard overview');
       }
+
       emit(DashboardLoading());
-      _currentSummary = (await dashboardRepository.fetchDashboardSummary()) as DashboardSummary;
+
+      final overview = await dashboardRepository.getDashboardOverview();
 
       if (kDebugMode) {
-        print("[DashboardBloc] Emitting DashboardLoaded");
-      }
-      emit(DashboardLoaded(_currentSummary!));
-    } catch (e, stacktrace) {
-      if (kDebugMode) {
-        print("[DashboardBloc] Error loading dashboard: $e");
-        print("[DashboardBloc] Stacktrace: $stacktrace");
-      }
-      emit(DashboardError('Failed to load dashboard: ${e.toString()}'));
-    }
-  }
-
-  Future<void> _onRefreshDashboard(RefreshDashboard event, Emitter<DashboardState> emit) async {
-    try {
-      if (_currentSummary != null) {
-        emit(DashboardRefreshing(_currentSummary!));
+        print('[DashboardBloc] Dashboard overview loaded successfully');
       }
 
-      _currentSummary = (await dashboardRepository.fetchDashboardSummary()) as DashboardSummary;
-      emit(DashboardLoaded(_currentSummary!));
+      emit(DashboardLoaded(overview));
     } catch (e) {
       if (kDebugMode) {
-        print("[DashboardBloc] Error refreshing dashboard: $e");
+        print('[DashboardBloc] Dashboard overview loading failed: $e');
       }
-      emit(DashboardError('Failed to refresh dashboard: ${e.toString()}'));
+
+      emit(DashboardError(e.toString().replaceFirst('Exception: ', '')));
+    }
+  }
+
+  Future<void> _onRefreshDashboard(
+      RefreshDashboard event,
+      Emitter<DashboardState> emit,
+      ) async {
+    try {
+      if (kDebugMode) {
+        print('[DashboardBloc] Refreshing dashboard');
+      }
+
+      // If we have existing data, show refreshing state
+      if (state is DashboardLoaded) {
+        emit(DashboardRefreshing((state as DashboardLoaded).overview));
+      } else {
+        emit(DashboardLoading());
+      }
+
+      final overview = await dashboardRepository.getDashboardOverview();
+
+      if (kDebugMode) {
+        print('[DashboardBloc] Dashboard refreshed successfully');
+      }
+
+      emit(DashboardLoaded(overview));
+    } catch (e) {
+      if (kDebugMode) {
+        print('[DashboardBloc] Dashboard refresh failed: $e');
+      }
+
+      emit(DashboardError(e.toString().replaceFirst('Exception: ', '')));
     }
   }
 }

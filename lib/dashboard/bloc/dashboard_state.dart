@@ -1,5 +1,6 @@
+// dashboard_state.dart
 import 'package:equatable/equatable.dart';
-import '../models/dashboard_summary.dart';
+import 'package:ams/dashboard/models/dashboard_models.dart';
 
 abstract class DashboardState extends Equatable {
   const DashboardState();
@@ -7,25 +8,33 @@ abstract class DashboardState extends Equatable {
   List<Object?> get props => [];
 }
 
+class DashboardInitial extends DashboardState {}
+
 class DashboardLoading extends DashboardState {}
 
 class DashboardLoaded extends DashboardState {
-  final DashboardSummary summary;
-  const DashboardLoaded(this.summary);
+  final DashboardOverview overview;
+
+  const DashboardLoaded(this.overview);
+
   @override
-  List<Object?> get props => [summary];
+  List<Object?> get props => [overview];
 }
 
 class DashboardError extends DashboardState {
-  final String error;
-  const DashboardError(this.error);
+  final String message;
+
+  const DashboardError(this.message);
+
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => [message];
 }
 
 class DashboardRefreshing extends DashboardState {
-  final DashboardSummary currentSummary;
-  const DashboardRefreshing(this.currentSummary);
+  final DashboardOverview overview;
+
+  const DashboardRefreshing(this.overview);
+
   @override
-  List<Object?> get props => [currentSummary];
+  List<Object?> get props => [overview];
 }

@@ -31,8 +31,6 @@ class ServiceLocator {
     // Initialize repositories
     _dashboardRepository = DashboardRepository(
       webService: _webService,
-      mockDataService: MockDataService(),
-      useMockData: true,
     );
 
     _userRepository = UserRepository(
